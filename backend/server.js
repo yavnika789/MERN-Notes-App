@@ -5,6 +5,7 @@ import path from "path";
 import "./config/db.js"; // connect to MongoDB
 
 import authRoutes from "./routes/authRoutes.js";
+import noteRoutes from "./routes/noteRoute.js";
 //import rateLimiter from "./middleware/rateLimiter.js";
 
 dotenv.config();
@@ -31,6 +32,7 @@ export const rateLimiter = (req, res, next) => {
 // });
 //
 app.use("/api/notes", authRoutes);
+app.use("/api/notes", noteRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

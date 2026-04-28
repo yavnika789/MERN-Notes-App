@@ -1,19 +1,9 @@
 import express from "express";
-//import { signupUser }from "../controllers/authController.js";
-import {
-  createNote,
-  deleteNote,
-  getAllNotes,
-  getNoteById,
-  updateNote,
-} from "../controllers/notesController.js";
+import { signup, login } from "../controllers/authController.js";
 
 const router = express.Router();
-//router.post("/signup",signupUser);
-router.get("/", getAllNotes);
-router.get("/:id", getNoteById);
-router.post("/", createNote);
-router.put("/:id", updateNote);
-router.delete("/:id", deleteNote);
+
+router.post("/signup", signup);
+router.post("/login", login);
 
 export default router;

@@ -13,33 +13,15 @@ const CreatePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!title.trim() || !content.trim()) {
-      toast.error("All fields are required");
-      return;
-    }
-
-    setLoading(true);
     try {
-      await api.post("/notes", {
-        title,
-        content,
-      });
-
-      toast.success("Note created successfully!");
+    const res = await api.post("/notes", { title, content }); 
+    toast.success("Note created!");
       navigate("/");
     } catch (error) {
-      console.log("Error creating note", error);
-      if (error.response.status === 429) {
-        toast.error("Slow down! You're creating notes too fast", {
-          duration: 4000,
-          icon: "💀",
-        });
-      } else {
-        toast.error("Failed to create note");
+    console.error("Error creating note", error);
+    if (error.response?.status === 401) {
+       toast.error("Session expired. Please login again.");
       }
-    } finally {
-      setLoading(false);
     }
   };
 
